@@ -1,0 +1,17 @@
+{
+  "functions": {
+    "api/landing.html": {
+      "runtime": "vercel-php@0.7.1"
+    }
+  },
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/api/landing.html"
+    },
+    {
+      "src": "/landing.html",
+      "dest": "/api/landing.html"
+    }
+  ]
+}
