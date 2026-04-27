@@ -2,7 +2,7 @@
 $host = 'gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com';
 $port = 4000;
 $user = '2g8sUhwYN9NeyTE.root';
-$pass = 'eey7wFToimgjqrPT';
+$pass = 'cW5FdFgEDCYiCL6J';   // <— sudah diganti
 $db   = 'db-pemweb';
 
 $koneksi = mysqli_init();
