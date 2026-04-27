@@ -2,26 +2,17 @@
 $host = 'gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com';
 $port = 4000;
 $user = '2g8sUhwYN9NeyTE.root';
-$pass = 'cW5FdFgEDCYiCL6J';
+$pass = 'cW5FdFgEDCYiCL6J'; 
 $db   = 'db-pemweb';
 
 $koneksi = mysqli_init();
-
-// Pengaturan SSL wajib untuk TiDB Cloud
+// TiDB Cloud butuh SSL aktif
 mysqli_ssl_set($koneksi, NULL, NULL, NULL, NULL, NULL);
 
-$status = mysqli_real_connect(
-    $koneksi, 
-    $host, 
-    $user, 
-    $pass, 
-    $db, 
-    $port, 
-    NULL, 
-    MYSQLI_CLIENT_SSL
-);
+$connected = mysqli_real_connect($koneksi, $host, $user, $pass, $db, $port, NULL, MYSQLI_CLIENT_SSL);
 
-if (!$status) {
+if (!$connected) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
+$koneksi->set_charset("utf8");
 ?>
