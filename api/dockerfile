@@ -1,19 +1,4 @@
 FROM php:8.2-apache
-
-# Set document root ke /var/www/html (default Apache)
-WORKDIR /var/www/html
-
-# Copy semua file dari repo ke dalam container
 COPY . /var/www/html/
-
-# Install ekstensi mysqli
 RUN docker-php-ext-install mysqli
-
-# Pastikan mod_rewrite aktif (opsional)
-RUN a2enmod rewrite
-
-# Ekspos port default Apache
 EXPOSE 80
-
-# Jalankan Apache di foreground
-CMD ["apache2-foreground"]
