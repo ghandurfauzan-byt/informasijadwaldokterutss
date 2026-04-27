@@ -1,17 +1,17 @@
 {
   "functions": {
-    "api/landing.html": {
-      "runtime": "vercel-php@0.7.1"
+    "api/**/*.php": {
+      "runtime": "vercel-php@0.7.5"
     }
   },
   "routes": [
     {
       "src": "/",
-      "dest": "/api/landing.html"
+      "dest": "/api/landing.php"
     },
     {
-      "src": "/landing.html",
-      "dest": "/api/landing.html"
+      "src": "/login",
+      "dest": "/api/login.php"
     }
   ]
 }
