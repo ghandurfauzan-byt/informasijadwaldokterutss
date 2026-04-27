@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -37,11 +40,17 @@
         .nav-links a:hover { color: #10b981; }
         .btn-login {
             background: #10b981;
-            color: white;
+            color: white !important;
             padding: 8px 20px;
             border-radius: 40px;
         }
         .btn-login:hover { background: #059669; color: white; }
+        .btn-logout {
+            background: #ef4444;
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 40px;
+        }
         /* Hero Section */
         .hero {
             background: linear-gradient(120deg, #1e3a8a, #3b82f6);
@@ -135,8 +144,13 @@
         <div class="nav-links">
             <a href="#features">Layanan</a>
             <a href="#jadwal">Jadwal</a>
-            <a href="api/login.php" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
-            <a href="api/register.php" style="background:#e2e8f0; padding:8px 20px; border-radius:40px;">Daftar</a>
+            <?php if(isset($_SESSION['username'])): ?>
+                <a href="index.php" style="font-weight: bold; color: #1e3a8a;">Dashboard</a>
+                <a href="logout.php" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            <?php else: ?>
+                <a href="login.php" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                <a href="register.php" style="background:#e2e8f0; padding:8px 20px; border-radius:40px;">Daftar</a>
+            <?php endif; ?>
         </div>
     </nav>
 
@@ -144,8 +158,12 @@
         <h1>Kesehatan Anda Prioritas Kami</h1>
         <p>Klinik Sehat Umat menyediakan layanan kesehatan terbaik dengan dokter profesional dan fasilitas modern. Daftar sekarang untuk mendapatkan pelayanan prima.</p>
         <div class="hero-buttons">
-            <a href="api/register.php" class="btn-primary"><i class="fas fa-user-plus"></i> Daftar Sekarang</a>
-            <a href="api/login.php" class="btn-outline"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <?php if(!isset($_SESSION['username'])): ?>
+                <a href="register.php" class="btn-primary"><i class="fas fa-user-plus"></i> Daftar Sekarang</a>
+                <a href="login.php" class="btn-outline"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <?php else: ?>
+                <a href="index.php" class="btn-primary">Kembali ke Dashboard</a>
+            <?php endif; ?>
         </div>
     </section>
 
