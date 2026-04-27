@@ -1,10 +1,14 @@
 <?php
 session_start();
-include 'koneksi.php';
+include 'koneksi.php'; // Pastikan koneksi.php sudah menggunakan SSL TiDB
 
-// Jika sudah login, langsung ke halaman utama (index.php)
+// Jika sudah login, langsung ke halaman utama sesuai role
 if (isset($_SESSION['username'])) {
-    header("Location: index.php");
+    if ($_SESSION['role'] == 'admin') {
+        header("Location: admin.php");
+    } else {
+        header("Location: index.php");
+    }
     exit();
 }
 
@@ -14,17 +18,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+    // Menggunakan Prepared Statement untuk keamanan
     $stmt = $koneksi->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($row = $result->fetch_assoc()) {
+        // Cek Password (menggunakan password_verify)
         if (password_verify($password, $row['password'])) {
             $_SESSION['username'] = $row['username'];
             $_SESSION['role'] = $row['role'];
             $_SESSION['nama_lengkap'] = $row['nama_lengkap'];
-            header("Location: index.php");
+
+            // Logika Redireksi Berdasarkan Role
+            if ($row['role'] == 'admin') {
+                header("Location: admin.php");
+            } else {
+                header("Location: index.php");
+            }
             exit();
         } else {
             $error = "Password salah!";
