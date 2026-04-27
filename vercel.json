@@ -7,11 +7,15 @@
   "routes": [
     {
       "src": "/",
+      "dest": "/api/index.php"
+    },
+    {
+      "src": "/landing",
       "dest": "/api/landing.php"
     },
     {
-      "src": "/login",
-      "dest": "/api/login.php"
+      "src": "/(.*)",
+      "dest": "/api/$1.php"
     }
   ]
 }
